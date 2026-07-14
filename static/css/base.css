@@ -296,7 +296,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1150;
     transition: var(--transition);
 }
 
