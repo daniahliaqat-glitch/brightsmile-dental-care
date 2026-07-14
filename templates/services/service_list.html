@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Our Services</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Services</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SERVICES INTRO FEATURES ============ -->
+<section class="section">
+    <div class="container">
+        <div class="services-intro-grid">
+            <div class="services-intro-card">
+                <i class="fa-solid fa-microscope"></i>
+                <h4>Advanced Technology</h4>
+                <p>Latest dental equipment</p>
+            </div>
+            <div class="services-intro-card">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h4>Expert Dentists</h4>
+                <p>Highly trained professionals</p>
+            </div>
+            <div class="services-intro-card">
+                <i class="fa-solid fa-hand-holding-medical"></i>
+                <h4>Painless Treatment</h4>
+                <p>Comfortable &amp; gentle care</p>
+            </div>
+            <div class="services-intro-card">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <h4>Affordable Pricing</h4>
+                <p>Quality care for everyone</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SERVICES GRID ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card card animate-on-scroll">
+                <div class="service-card__image">
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                </div>
+                <div class="service-card__body">
+                    <div class="service-card__icon"><i class="fa-solid fa-tooth"></i></div>
+                    <h3><a href="{% url 'services:service_detail' service.slug %}">{{ service.name }}</a></h3>
+                    <p>{{ service.short_description }}</p>
+                    <a href="{% url 'services:service_detail' service.slug %}" class="service-card__link">
+                        Learn More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our services are being added. Please check back shortly.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ APPOINTMENT CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-regular fa-calendar-check"></i>
+            <div>
+                <h3>Ready To Book Your Appointment?</h3>
+                <p>Schedule your visit today and take the first step towards a healthier smile.</p>
+            </div>
+        </div>
+        <a href="{% url 'appointments:book_appointment' %}" class="btn btn--white">Book Appointment</a>
+    </div>
+</section>
+
+{% endblock %}

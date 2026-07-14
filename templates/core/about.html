@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>About Us</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>About Us</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ABOUT INTRO ============ -->
+<section class="section">
+    <div class="container about-intro__inner">
+        <div class="about-intro__image animate-on-scroll">
+            <img src="{% static 'images/about-team.jpg' %}" alt="BrightSmile Dental Care Team">
+        </div>
+
+        <div class="about-intro__content animate-on-scroll">
+            <span class="section-badge">ABOUT BRIGHTSMILE</span>
+            <h2 class="section-title">Your Trusted Partner In Dental Health</h2>
+            <p class="section-subtitle">
+                At BrightSmile Dental Care, we are committed to providing exceptional
+                dental services with a personalized approach. Our experienced team
+                uses the latest technology to ensure the best care for you and your
+                family, in a warm and welcoming environment.
+            </p>
+
+            <ul class="why-choose-us__list">
+                {% for feature in features %}
+                <li><i class="fa-solid fa-circle-check"></i> {{ feature.title }}</li>
+                {% empty %}
+                <li><i class="fa-solid fa-circle-check"></i> Experienced &amp; Caring Doctors</li>
+                <li><i class="fa-solid fa-circle-check"></i> State-of-the-Art Technology</li>
+                <li><i class="fa-solid fa-circle-check"></i> Comfortable Environment</li>
+                <li><i class="fa-solid fa-circle-check"></i> Patient-Centered Care</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'appointments:book_appointment' %}" class="btn btn--primary">Book Appointment</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ STATS STRIP ============ -->
+<section class="stats-strip">
+    <div class="container stats-strip__inner">
+        {% for stat in stats %}
+        <div class="stats-strip__item">
+            <span class="counter" data-target="{{ stat.value|slice:':-1' }}" data-suffix="{{ stat.value|slice:'-1:' }}">0</span>
+            <p>{{ stat.label }}</p>
+        </div>
+        {% empty %}
+        <div class="stats-strip__item">
+            <span class="counter" data-target="15" data-suffix="+">0+</span>
+            <p>Years Experience</p>
+        </div>
+        <div class="stats-strip__item">
+            <span class="counter" data-target="2500" data-suffix="+">0+</span>
+            <p>Happy Patients</p>
+        </div>
+        <div class="stats-strip__item">
+            <span class="counter" data-target="10" data-suffix="+">0+</span>
+            <p>Expert Dentists</p>
+        </div>
+        <div class="stats-strip__item">
+            <span class="counter" data-target="98" data-suffix="%">0%</span>
+            <p>Satisfaction Rate</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ============ MISSION / VALUES ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">OUR MISSION</span>
+            <h2 class="section-title">Why Families Choose BrightSmile</h2>
+        </div>
+
+        <div class="values-grid">
+            <div class="values-card card animate-on-scroll">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h4>Compassionate Care</h4>
+                <p>We treat every patient like family, ensuring comfort at every visit.</p>
+            </div>
+            <div class="values-card card animate-on-scroll">
+                <i class="fa-solid fa-award"></i>
+                <h4>Excellence In Dentistry</h4>
+                <p>Our team continually trains in the latest dental techniques and technology.</p>
+            </div>
+            <div class="values-card card animate-on-scroll">
+                <i class="fa-solid fa-people-group"></i>
+                <h4>Family-Friendly Environment</h4>
+                <p>From toddlers to grandparents, we provide care for every generation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-regular fa-calendar-check"></i>
+            <div>
+                <h3>Experience The BrightSmile Difference</h3>
+                <p>Schedule your visit today and see why patients trust us with their smiles.</p>
+            </div>
+        </div>
+        <a href="{% url 'appointments:book_appointment' %}" class="btn btn--white">Book Appointment</a>
+    </div>
+</section>
+
+{% endblock %}

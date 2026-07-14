@@ -1,0 +1,283 @@
+/* ============================================================
+   BRIGHTSMILE DENTAL CARE — APPOINTMENT & ABOUT PAGE STYLESHEET
+   ============================================================ */
+
+/* ---------- APPOINTMENT PAGE LAYOUT ---------- */
+.appointment-page__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.appointment-page__info {
+    padding: 32px;
+    position: sticky;
+    top: 110px;
+}
+
+.appointment-page__info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.appointment-page__info-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+    font-size: 0.9rem;
+    color: var(--color-gray-text);
+}
+
+.appointment-page__info-list i {
+    color: var(--color-teal);
+    font-size: 1.1rem;
+    margin-top: 2px;
+    min-width: 20px;
+}
+
+.appointment-page__info-image {
+    width: 100%;
+    border-radius: var(--radius-md);
+    margin-top: 12px;
+}
+
+.appointment-page__form-wrap {
+    padding: 36px;
+}
+
+.appointment-page__form-wrap h3 {
+    font-size: 1.3rem;
+    margin-bottom: 28px;
+}
+
+/* ---------- APPOINTMENT FORM ---------- */
+.appointment-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.appointment-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.appointment-form__field--full {
+    margin-bottom: 24px;
+}
+
+.appointment-form__field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-dark-blue);
+}
+
+.appointment-form__field input,
+.appointment-form__field select,
+.appointment-form__field textarea {
+    padding: 13px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-soft-gray);
+    color: var(--color-dark-blue);
+    transition: var(--transition);
+}
+
+.appointment-form__field input:focus,
+.appointment-form__field select:focus,
+.appointment-form__field textarea:focus {
+    outline: none;
+    border-color: var(--color-teal);
+    background-color: var(--color-white);
+}
+
+.appointment-form__field input.is-invalid,
+.appointment-form__field select.is-invalid,
+.appointment-form__field textarea.is-invalid {
+    border-color: #e4534b;
+}
+
+.field-error {
+    color: #e4534b;
+    font-size: 0.78rem;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ---------- APPOINTMENT SUCCESS PAGE ---------- */
+.appointment-success {
+    padding: 120px 0;
+}
+
+.appointment-success__inner {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.appointment-success__icon {
+    font-size: 4.5rem;
+    color: var(--color-teal);
+    margin-bottom: 24px;
+}
+
+.appointment-success h1 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+}
+
+.appointment-success p {
+    color: var(--color-gray-text);
+    margin-bottom: 32px;
+}
+
+.appointment-success__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+/* ---------- ABOUT PAGE ---------- */
+.about-intro__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-intro__image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.stats-strip {
+    background-color: var(--color-dark-blue);
+    padding: 48px 0;
+}
+
+.stats-strip__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+}
+
+.stats-strip__item {
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stats-strip__item:last-child {
+    border-right: none;
+}
+
+.stats-strip__item .counter {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-teal);
+    margin-bottom: 6px;
+}
+
+.stats-strip__item p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.values-card {
+    text-align: center;
+    padding: 40px 28px;
+}
+
+.values-card i {
+    font-size: 2.2rem;
+    color: var(--color-teal);
+    margin-bottom: 18px;
+}
+
+.values-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.values-card p {
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
+
+@media (max-width: 991px) {
+    .appointment-page__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-page__info {
+        position: static;
+    }
+
+    .about-intro__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-strip__inner {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 32px;
+    }
+
+    .stats-strip__item:nth-child(2) {
+        border-right: none;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .appointment-form__row {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-page__form-wrap {
+        padding: 24px;
+    }
+
+    .appointment-page__info {
+        padding: 24px;
+    }
+
+    .appointment-success {
+        padding: 70px 0;
+    }
+
+    .appointment-success__actions {
+        flex-direction: column;
+    }
+
+    .stats-strip__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-strip__item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 24px;
+    }
+
+    .stats-strip__item:last-child {
+        border-bottom: none;
+    }
+}

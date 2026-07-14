@@ -1,0 +1,91 @@
+{% load static %}
+<!-- Top Info Bar -->
+<div class="top-info-bar">
+    <div class="container top-info-bar__inner">
+        <div class="top-info-bar__left">
+            <span><i class="fa-solid fa-location-dot"></i> {{ CLINIC_ADDRESS|default:"123 Maple Avenue, Springfield, IL 62701, USA" }}</span>
+            <span><i class="fa-regular fa-clock"></i> Mon - Sat: 9:00 AM - 7:00 PM</span>
+        </div>
+        <div class="top-info-bar__right">
+            <span class="top-info-bar__emergency">
+                <i class="fa-solid fa-phone-volume"></i> Emergency: (555) 999-0000
+            </span>
+            <div class="top-info-bar__socials">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Navbar -->
+<header class="navbar" id="mainNavbar">
+    <div class="container navbar__inner">
+
+        <a href="{% url 'core:home' %}" class="navbar__logo">
+            <i class="fa-solid fa-tooth navbar__logo-icon"></i>
+            <div class="navbar__logo-text">
+                <span class="navbar__logo-title">BrightSmile</span>
+                <span class="navbar__logo-subtitle">DENTAL CARE</span>
+            </div>
+        </a>
+
+        <nav class="navbar__links" id="navbarLinks">
+            <a href="{% url 'core:home' %}" class="navbar__link">Home</a>
+            <a href="{% url 'core:about' %}" class="navbar__link">About Us</a>
+            <a href="{% url 'services:service_list' %}" class="navbar__link">Services</a>
+            <a href="{% url 'doctors:doctor_list' %}" class="navbar__link">Doctors</a>
+            <a href="{% url 'appointments:book_appointment' %}" class="navbar__link">Appointment</a>
+
+            <div class="navbar__dropdown">
+                <button class="navbar__link navbar__dropdown-toggle">
+                    Pages <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="navbar__dropdown-menu">
+                    <a href="{% url 'core:pricing' %}">Pricing</a>
+                    <a href="{% url 'core:faq' %}">FAQ</a>
+                    <a href="{% url 'core:gallery' %}">Gallery</a>
+                    <a href="{% url 'insurance:insurance' %}">Insurance</a>
+                    <a href="{% url 'testimonials:testimonial_list' %}">Testimonials</a>
+                </div>
+            </div>
+
+            <a href="{% url 'blog:blog_list' %}" class="navbar__link">Blog</a>
+            <a href="{% url 'contact_us:contact' %}" class="navbar__link">Contact</a>
+        </nav>
+
+        <div class="navbar__actions">
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            {% if user.is_authenticated %}
+                <div class="navbar__dropdown navbar__user-dropdown">
+                    <button class="navbar__link navbar__dropdown-toggle">
+                        <i class="fa-solid fa-circle-user"></i> {{ user.first_name|default:user.username }}
+                    </button>
+                    <div class="navbar__dropdown-menu">
+                        <a href="{% url 'dashboard:patient_dashboard' %}">Dashboard</a>
+                        <a href="{% url 'accounts:profile' %}">My Profile</a>
+                        {% if user.is_staff %}
+                            <a href="{% url 'dashboard:admin_dashboard' %}">Admin Dashboard</a>
+                        {% endif %}
+                        <a href="{% url 'accounts:logout' %}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="navbar__link">Login</a>
+            {% endif %}
+
+            <a href="{% url 'appointments:book_appointment' %}" class="btn btn--primary btn--sm">
+                Book Appointment
+            </a>
+        </div>
+
+        <button class="navbar__toggle" id="navbarToggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</header>

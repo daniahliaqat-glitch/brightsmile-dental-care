@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Our Blog</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Blog</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BLOG LISTING ============ -->
+<section class="section">
+    <div class="container blog-page__inner">
+
+        <div class="blog-page__main">
+            <div class="articles-grid articles-grid--wide">
+                {% for post in posts %}
+                <div class="article-card card animate-on-scroll">
+                    <div class="article-card__image">
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    </div>
+                    <div class="article-card__body">
+                        <span class="article-card__meta">
+                            <i class="fa-regular fa-calendar"></i> {{ post.published_at|date:"M d, Y" }}
+                            {% if post.category %} &bull; {{ post.category.name }}{% endif %}
+                        </span>
+                        <h3><a href="{% url 'blog:blog_detail' post.slug %}">{{ post.title }}</a></h3>
+                        <p>{{ post.excerpt }}</p>
+                        <a href="{% url 'blog:blog_detail' post.slug %}" class="service-card__link">
+                            Read More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No articles found{% if query %} matching "{{ query }}"{% endif %}.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <aside class="blog-page__sidebar">
+            <div class="blog-sidebar-widget card">
+                <h4>Search Blog</h4>
+                <form method="get" class="blog-search-form">
+                    <input type="text" name="q" placeholder="Search articles..." value="{{ query }}">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+
+            <div class="blog-sidebar-widget card">
+                <h4>Categories</h4>
+                <ul class="blog-category-list">
+                    <li>
+                        <a href="{% url 'blog:blog_list' %}" class="{% if not selected_category %}is-active{% endif %}">
+                            All Categories
+                        </a>
+                    </li>
+                    {% for category in categories %}
+                    <li>
+                        <a href="?category={{ category.slug }}" class="{% if selected_category == category.slug %}is-active{% endif %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+    <div class="container auth-section__inner">
+        <div class="auth-card auth-card--wide card">
+            <div class="auth-card__header">
+                <i class="fa-solid fa-tooth auth-card__icon"></i>
+                <h2>Create Your Account</h2>
+                <p>Register to book appointments and manage your dental care.</p>
+            </div>
+
+            <form method="post" data-validate="true" class="auth-form">
+                {% csrf_token %}
+
+                <div class="auth-form__row">
+                    <div class="auth-form__field">
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="auth-form__field">
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <div class="auth-form__row">
+                    <div class="auth-form__field">
+                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="auth-form__field">
+                        <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+
+                <div class="auth-form__field">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="auth-form__row">
+                    <div class="auth-form__field">
+                        <label for="{{ form.password1.id_for_label }}">Password</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="auth-form__field">
+                        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                        {{ form.password2 }}
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                <div class="auth-form__error">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn--primary btn--block">
+                    <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <p class="auth-card__footer">
+                Already have an account? <a href="{% url 'accounts:login' %}">Login Here</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

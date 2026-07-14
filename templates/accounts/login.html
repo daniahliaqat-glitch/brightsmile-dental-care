@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+    <div class="container auth-section__inner">
+        <div class="auth-card card">
+            <div class="auth-card__header">
+                <i class="fa-solid fa-tooth auth-card__icon"></i>
+                <h2>Welcome Back</h2>
+                <p>Login to access your patient dashboard.</p>
+            </div>
+
+            <form method="post" data-validate="true" class="auth-form">
+                {% csrf_token %}
+
+                <div class="auth-form__field">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    <input type="text" name="username" id="{{ form.username.id_for_label }}"
+                           class="form-control" placeholder="Enter your username" required>
+                </div>
+
+                <div class="auth-form__field">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    <input type="password" name="password" id="{{ form.password.id_for_label }}"
+                           class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                {% if form.errors %}
+                <p class="auth-form__error">Invalid username or password. Please try again.</p>
+                {% endif %}
+
+                <div class="auth-form__meta">
+                    <a href="{% url 'accounts:forgot_password' %}">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+            </form>
+
+            <p class="auth-card__footer">
+                Don't have an account? <a href="{% url 'accounts:register' %}">Register Now</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

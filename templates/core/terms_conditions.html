@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms & Conditions | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/legal.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Terms &amp; Conditions</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Terms &amp; Conditions</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ LEGAL CONTENT ============ -->
+<section class="section">
+    <div class="container">
+        <div class="legal-content">
+            <p class="legal-content__updated">Last Updated: January 1, 2026</p>
+
+            <h2>1. Acceptance Of Terms</h2>
+            <p>
+                By accessing or using the BrightSmile Dental Care website, you agree to be
+                bound by these Terms &amp; Conditions. If you do not agree with any part of
+                these terms, please do not use our website or services.
+            </p>
+
+            <h2>2. Appointment Bookings</h2>
+            <p>
+                Appointment requests submitted through this website are requests only and
+                are not confirmed until our staff contacts you to verify the date and time.
+                We reserve the right to reschedule or decline appointment requests at our
+                discretion.
+            </p>
+
+            <h2>3. Patient Portal Accounts</h2>
+            <p>
+                Users who register for a patient portal account are responsible for
+                maintaining the confidentiality of their login credentials and for all
+                activity that occurs under their account.
+            </p>
+
+            <h2>4. Medical Disclaimer</h2>
+            <p>
+                The content on this website, including service descriptions and blog
+                articles, is provided for general informational purposes only and does
+                not constitute professional dental or medical advice. Always consult with
+                a qualified dental professional regarding your specific condition.
+            </p>
+
+            <h2>5. Pricing Disclaimer</h2>
+            <p>
+                Prices listed on our Services and Pricing pages are demo estimates for
+                illustrative purposes. Actual treatment costs may vary based on individual
+                diagnosis, insurance coverage, and treatment plan.
+            </p>
+
+            <h2>6. Intellectual Property</h2>
+            <p>
+                All content on this website, including text, images, logos, and design
+                elements, is the property of BrightSmile Dental Care and may not be
+                reproduced without written permission.
+            </p>
+
+            <h2>7. Limitation Of Liability</h2>
+            <p>
+                BrightSmile Dental Care shall not be liable for any indirect, incidental,
+                or consequential damages arising from your use of this website.
+            </p>
+
+            <h2>8. Governing Law</h2>
+            <p>
+                These Terms &amp; Conditions are governed by the laws of the State of
+                Illinois, United States, without regard to its conflict of law provisions.
+            </p>
+
+            <h2>9. Contact Us</h2>
+            <p>
+                For questions regarding these Terms &amp; Conditions, please contact us at
+                info@brightsmiledental.com or (555) 123-4567.
+            </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

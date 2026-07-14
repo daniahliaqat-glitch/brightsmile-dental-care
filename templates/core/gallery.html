@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gallery | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Our Gallery</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Gallery</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ GALLERY FILTER + GRID ============ -->
+<section class="section">
+    <div class="container">
+
+        <div class="gallery-filters">
+            <a href="{% url 'core:gallery' %}" class="gallery-filter {% if selected_category == 'all' %}is-active{% endif %}">
+                All
+            </a>
+            {% for value, label in categories %}
+            <a href="?category={{ value }}" class="gallery-filter {% if selected_category == value %}is-active{% endif %}">
+                {{ label }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="gallery-grid">
+            {% for image in images %}
+            <div class="gallery-item animate-on-scroll">
+                <img src="{{ image.image.url }}" alt="{{ image.title }}">
+                <div class="gallery-item__overlay">
+                    <i class="fa-solid fa-expand"></i>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our gallery is being updated. Please check back shortly.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-regular fa-images"></i>
+            <div>
+                <h3>Like What You See?</h3>
+                <p>Book an appointment and experience our clinic firsthand.</p>
+            </div>
+        </div>
+        <a href="{% url 'appointments:book_appointment' %}" class="btn btn--white">Book Appointment</a>
+    </div>
+</section>
+
+{% endblock %}

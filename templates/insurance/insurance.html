@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Insurance | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/faq-pricing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Insurance</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Insurance</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ INSURANCE PARTNERS ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">OUR PARTNERS</span>
+            <h2 class="section-title">Insurance Providers We Work With</h2>
+            <p class="section-subtitle">We partner with leading insurance companies to make quality dental care accessible.</p>
+        </div>
+
+        <div class="insurance-strip__logos">
+            {% for partner in partners %}
+            <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+            {% empty %}
+            <p class="text-center">Our list of insurance partners is being updated.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ ACCEPTED PLANS ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">ACCEPTED PLANS</span>
+            <h2 class="section-title">Plans We Accept</h2>
+        </div>
+
+        <div class="plans-grid">
+            {% for plan in plans %}
+            <div class="plan-card card animate-on-scroll">
+                <div class="plan-card__icon"><i class="fa-solid fa-shield-heart"></i></div>
+                <h4>{{ plan.plan_name }}</h4>
+                <p class="plan-card__partner">{{ plan.partner.name }}</p>
+                <p>{{ plan.coverage_details }}</p>
+            </div>
+            {% empty %}
+            <p class="text-center">Plan details are being updated. Please contact us to confirm your coverage.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ INSURANCE FAQ ============ -->
+{% if insurance_faqs %}
+<section class="section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">FAQ</span>
+            <h2 class="section-title">Insurance Questions</h2>
+        </div>
+
+        <div class="faq-accordion">
+            {% for faq in insurance_faqs %}
+            <div class="faq-item">
+                <button class="faq-item__question">
+                    <span>{{ faq.question }}</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-item__answer">
+                    <p>{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-solid fa-shield-heart"></i>
+            <div>
+                <h3>Not Sure About Your Coverage?</h3>
+                <p>Contact our team and we'll help verify your insurance benefits.</p>
+            </div>
+        </div>
+        <a href="{% url 'contact_us:contact' %}" class="btn btn--white">Contact Us</a>
+    </div>
+</section>
+
+{% endblock %}

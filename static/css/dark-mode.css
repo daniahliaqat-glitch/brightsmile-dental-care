@@ -1,0 +1,61 @@
+/* ============================================================
+   BRIGHTSMILE DENTAL CARE — DARK MODE STYLESHEET
+   Activated via the .dark-mode class on <body>
+   ============================================================ */
+
+body.dark-mode {
+    --color-white: #14202b;
+    --color-light-blue: #17303f;
+    --color-dark-blue: #eef3f7;
+    --color-navy: #0d3b5c;
+    --color-teal: #00c2c2;
+    --color-teal-dark: #00a3a3;
+    --color-teal-light: #163636;
+    --color-soft-gray: #1b2836;
+    --color-gray-text: #a6b3c1;
+    --color-border: #263544;
+
+    background-color: #0e1720;
+}
+
+body.dark-mode .navbar,
+body.dark-mode .navbar__dropdown-menu {
+    background-color: #14202b;
+}
+
+body.dark-mode .top-info-bar {
+    background-color: #0a141d;
+}
+
+body.dark-mode .card {
+    background-color: #14202b;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dark-mode-toggle i::before {
+    content: "\f185"; /* sun icon */
+}
+
+body.dark-mode .footer {
+    background-color: #0a141d;
+}
+
+body.dark-mode .alert {
+    background-color: #14202b;
+}
+
+body.dark-mode .loading-screen {
+    background-color: #0e1720;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #1b2836;
+    color: #eef3f7;
+    border-color: #263544;
+}
+
+body.dark-mode ::placeholder {
+    color: #6b7a89;
+}

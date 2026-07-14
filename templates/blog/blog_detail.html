@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} | BrightSmile Dental Care{% endblock %}
+{% block meta_description %}{{ post.excerpt }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>{{ post.title }}</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="{% url 'blog:blog_list' %}">Blog</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>{{ post.title }}</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BLOG DETAIL ============ -->
+<section class="section">
+    <div class="container blog-detail__inner">
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="blog-detail__image">
+
+        <div class="blog-detail__meta">
+            {% if post.category %}<span><i class="fa-solid fa-folder"></i> {{ post.category.name }}</span>{% endif %}
+            <span><i class="fa-regular fa-calendar"></i> {{ post.published_at|date:"F d, Y" }}</span>
+            {% if post.author %}<span><i class="fa-regular fa-user"></i> {{ post.author.get_full_name|default:post.author.username }}</span>{% endif %}
+        </div>
+
+        <div class="blog-detail__content">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+</section>
+
+<!-- ============ RECENT POSTS ============ -->
+{% if recent_posts %}
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <h2 class="section-title">More Articles</h2>
+        </div>
+        <div class="articles-grid">
+            {% for recent in recent_posts %}
+            <div class="article-card card animate-on-scroll">
+                <div class="article-card__image">
+                    <img src="{{ recent.featured_image.url }}" alt="{{ recent.title }}">
+                </div>
+                <div class="article-card__body">
+                    <span class="article-card__meta">
+                        <i class="fa-regular fa-calendar"></i> {{ recent.published_at|date:"M d, Y" }}
+                    </span>
+                    <h3><a href="{% url 'blog:blog_detail' recent.slug %}">{{ recent.title }}</a></h3>
+                    <a href="{% url 'blog:blog_detail' recent.slug %}" class="service-card__link">
+                        Read More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

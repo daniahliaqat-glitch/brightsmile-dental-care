@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/appointment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Contact Us</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Contact</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CONTACT INFO CARDS ============ -->
+<section class="section">
+    <div class="container">
+        <div class="contact-info-grid">
+            <div class="contact-info-card card animate-on-scroll">
+                <i class="fa-solid fa-location-dot"></i>
+                <h4>Our Address</h4>
+                <p>123 Smile Street, New York, USA 10001</p>
+            </div>
+            <div class="contact-info-card card animate-on-scroll">
+                <i class="fa-solid fa-phone"></i>
+                <h4>Phone Number</h4>
+                <p>(123) 456-7890</p>
+            </div>
+            <div class="contact-info-card card animate-on-scroll">
+                <i class="fa-solid fa-envelope"></i>
+                <h4>Email Address</h4>
+                <p>info@brightsmiledental.com</p>
+            </div>
+            <div class="contact-info-card card animate-on-scroll">
+                <i class="fa-regular fa-clock"></i>
+                <h4>Working Hours</h4>
+                <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CONTACT FORM + MAP ============ -->
+<section class="section section--gray">
+    <div class="container contact-page__inner">
+
+        <div class="appointment-page__form-wrap card">
+            <h3>Send Us A Message</h3>
+
+            <form method="post" data-validate="true" class="appointment-form">
+                {% csrf_token %}
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+                    <div class="appointment-form__field">
+                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="appointment-form__field">
+                        <label for="{{ form.subject.id_for_label }}">Subject</label>
+                        {{ form.subject }}
+                    </div>
+                </div>
+
+                <div class="appointment-form__field appointment-form__field--full">
+                    <label for="{{ form.message.id_for_label }}">Your Message</label>
+                    {{ form.message }}
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block">
+                    <i class="fa-regular fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+        <div class="contact-page__map card">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.386!2d-89.6501!3d39.7817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjEiTiA4OcKwMzknMDAuNCJX!5e0!3m2!1sen!2sus!4v1234567890"
+                width="100%"
+                height="100%"
+                style="border:0; min-height: 400px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="BrightSmile Dental Care Location">
+            </iframe>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============ EMERGENCY BANNER ============ -->
+<section class="emergency-banner">
+    <div class="container emergency-banner__inner">
+        <div class="emergency-banner__text">
+            <div class="emergency-banner__icon"><i class="fa-solid fa-truck-medical"></i></div>
+            <div>
+                <h3>Need Immediate Assistance?</h3>
+                <p>Call our 24/7 emergency dental line for urgent care.</p>
+            </div>
+        </div>
+        <a href="tel:+15559990000" class="btn btn--white">Call: (555) 999-0000</a>
+    </div>
+</section>
+
+{% endblock %}

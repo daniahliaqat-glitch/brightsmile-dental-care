@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/faq-pricing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Frequently Asked Questions</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>FAQ</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ SECTIONS ============ -->
+<section class="section">
+    <div class="container faq-page__inner">
+
+        {% if general_faqs %}
+        <div class="faq-group">
+            <h3><i class="fa-solid fa-circle-info"></i> General Questions</h3>
+            <div class="faq-accordion">
+                {% for faq in general_faqs %}
+                <div class="faq-item">
+                    <button class="faq-item__question">
+                        <span>{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-item__answer"><p>{{ faq.answer }}</p></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if appointment_faqs %}
+        <div class="faq-group">
+            <h3><i class="fa-regular fa-calendar-check"></i> Appointments</h3>
+            <div class="faq-accordion">
+                {% for faq in appointment_faqs %}
+                <div class="faq-item">
+                    <button class="faq-item__question">
+                        <span>{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-item__answer"><p>{{ faq.answer }}</p></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if insurance_faqs %}
+        <div class="faq-group">
+            <h3><i class="fa-solid fa-shield-heart"></i> Insurance</h3>
+            <div class="faq-accordion">
+                {% for faq in insurance_faqs %}
+                <div class="faq-item">
+                    <button class="faq-item__question">
+                        <span>{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-item__answer"><p>{{ faq.answer }}</p></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if billing_faqs %}
+        <div class="faq-group">
+            <h3><i class="fa-solid fa-file-invoice-dollar"></i> Billing</h3>
+            <div class="faq-accordion">
+                {% for faq in billing_faqs %}
+                <div class="faq-item">
+                    <button class="faq-item__question">
+                        <span>{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-item__answer"><p>{{ faq.answer }}</p></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if not general_faqs and not appointment_faqs and not insurance_faqs and not billing_faqs %}
+        <p class="text-center">Our FAQ section is being updated. Please contact us with any questions.</p>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-regular fa-comments"></i>
+            <div>
+                <h3>Still Have Questions?</h3>
+                <p>Our friendly team is here to help with anything you need.</p>
+            </div>
+        </div>
+        <a href="{% url 'contact_us:contact' %}" class="btn btn--white">Contact Us</a>
+    </div>
+</section>
+
+{% endblock %}

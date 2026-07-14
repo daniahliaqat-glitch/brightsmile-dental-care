@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} | BrightSmile Dental Care{% endblock %}
+{% block meta_description %}{{ service.short_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>{{ service.name }}</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="{% url 'services:service_list' %}">Services</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>{{ service.name }}</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SERVICE DETAIL ============ -->
+<section class="section">
+    <div class="container service-detail__inner">
+        <div class="service-detail__main">
+            <img src="{{ service.image.url }}" alt="{{ service.name }}" class="service-detail__image">
+
+            <h2>About This Treatment</h2>
+            <p class="service-detail__description">{{ service.full_description|linebreaks }}</p>
+
+            <h3>Key Benefits</h3>
+            <ul class="service-detail__benefits">
+                {% for benefit in service.benefit_list %}
+                <li><i class="fa-solid fa-circle-check"></i> {{ benefit }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <aside class="service-detail__sidebar">
+            <div class="service-detail__price-card card">
+                <span class="service-detail__price-label">Starting From</span>
+                <span class="service-detail__price">{{ service.formatted_price }}</span>
+                <span class="service-detail__duration">
+                    <i class="fa-regular fa-clock"></i> Approx. {{ service.duration_minutes }} minutes
+                </span>
+                <a href="{% url 'appointments:book_appointment' %}?service={{ service.slug }}" class="btn btn--primary btn--block">
+                    Book This Service
+                </a>
+                <a href="tel:+15551234567" class="btn btn--outline btn--block">
+                    <i class="fa-solid fa-phone"></i> Call For Details
+                </a>
+            </div>
+
+            {% if doctors %}
+            <div class="service-detail__doctors-card card">
+                <h4>Available Doctors</h4>
+                {% for doctor in doctors %}
+                <a href="{% url 'doctors:doctor_detail' doctor.slug %}" class="service-detail__doctor-mini">
+                    <img src="{{ doctor.photo.url }}" alt="Dr. {{ doctor.full_name }}">
+                    <div>
+                        <strong>Dr. {{ doctor.full_name }}</strong>
+                        <span>{{ doctor.specialization }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </aside>
+    </div>
+</section>
+
+<!-- ============ RELATED SERVICES ============ -->
+{% if related_services %}
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <h2 class="section-title">Related Services</h2>
+        </div>
+        <div class="services-grid">
+            {% for related in related_services %}
+            <div class="service-card card animate-on-scroll">
+                <div class="service-card__image">
+                    <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                </div>
+                <div class="service-card__body">
+                    <div class="service-card__icon"><i class="fa-solid fa-tooth"></i></div>
+                    <h3><a href="{% url 'services:service_detail' related.slug %}">{{ related.name }}</a></h3>
+                    <p>{{ related.short_description }}</p>
+                    <a href="{% url 'services:service_detail' related.slug %}" class="service-card__link">
+                        Learn More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

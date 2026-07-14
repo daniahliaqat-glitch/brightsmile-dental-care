@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BrightSmile Dental Care | Healthy Smiles Begin Here{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO SECTION ============ -->
+<section class="hero">
+    <div class="container hero__inner">
+        <div class="hero__text animate-on-scroll">
+            <span class="section-badge">YOUR SMILE, OUR PASSION</span>
+            <h1 class="hero__title">Healthy Smiles <span class="hero__title-accent">Start Here</span></h1>
+            <p class="hero__subtitle">
+                We provide world-class dental care with a gentle touch.
+                Your smile is our priority.
+            </p>
+            <div class="hero__actions btn-group--stack-mobile">
+                <a href="{% url 'appointments:book_appointment' %}" class="btn btn--primary">
+                    <i class="fa-regular fa-calendar-check"></i> Book Appointment
+                </a>
+                <a href="tel:+15551234567" class="btn btn--outline">
+                    <i class="fa-solid fa-phone"></i> Call Now
+                </a>
+            </div>
+
+            <div class="hero__features">
+                <div class="hero__feature">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <div>
+                        <strong>Experienced Doctors</strong>
+                        <span>Highly skilled &amp; certified</span>
+                    </div>
+                </div>
+                <div class="hero__feature">
+                    <i class="fa-solid fa-microscope"></i>
+                    <div>
+                        <strong>Advanced Technology</strong>
+                        <span>Latest dental equipment</span>
+                    </div>
+                </div>
+                <div class="hero__feature">
+                    <i class="fa-solid fa-hand-holding-medical"></i>
+                    <div>
+                        <strong>Painless Treatment</strong>
+                        <span>Comfortable &amp; gentle care</span>
+                    </div>
+                </div>
+                <div class="hero__feature">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <div>
+                        <strong>Emergency Care</strong>
+                        <span>24/7 emergency service</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__image-wrap animate-on-scroll">
+            <img src="{% static 'images/hero-dentist.jpg' %}" alt="Dentist treating a smiling patient" class="hero__image">
+        </div>
+    </div>
+</section>
+
+<!-- ============ WHY CHOOSE US / TRUSTED CARE SECTION ============ -->
+<section class="section why-choose-us">
+    <div class="container why-choose-us__inner">
+        <div class="why-choose-us__image animate-on-scroll">
+            <img src="{% static 'images/about-clinic.jpg' %}" alt="Dentist caring for a patient">
+            <div class="why-choose-us__badge">
+                <span class="counter" data-target="15" data-suffix="+">0+</span>
+                <p>Years Of Experience</p>
+            </div>
+        </div>
+
+        <div class="why-choose-us__content animate-on-scroll">
+            <span class="section-badge">ABOUT US</span>
+            <h2 class="section-title">Trusted Dental Care For Your Family</h2>
+            <p class="section-subtitle">
+                At BrightSmile Dental Care, we combine advanced technology with a
+                compassionate approach to deliver exceptional dental services for
+                the whole family.
+            </p>
+
+            <ul class="why-choose-us__list">
+                {% for feature in features %}
+                <li>
+                    <i class="fa-solid fa-circle-check"></i> {{ feature.title }}
+                </li>
+                {% empty %}
+                <li><i class="fa-solid fa-circle-check"></i> Comfortable Environment</li>
+                <li><i class="fa-solid fa-circle-check"></i> Personalized Care</li>
+                <li><i class="fa-solid fa-circle-check"></i> Affordable Pricing</li>
+                <li><i class="fa-solid fa-circle-check"></i> Insurance Friendly</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'core:about' %}" class="btn btn--primary">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MEET OUR DENTISTS SECTION ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">OUR TEAM</span>
+            <h2 class="section-title">Meet Our Dentists</h2>
+            <p class="section-subtitle">Experienced professionals dedicated to your smile's health and beauty.</p>
+        </div>
+
+        <div class="doctors-grid">
+            {% for doctor in doctors %}
+            <div class="doctor-card card animate-on-scroll">
+                <div class="doctor-card__image">
+                    <img src="{{ doctor.photo.url }}" alt="Dr. {{ doctor.full_name }}">
+                </div>
+                <div class="doctor-card__body">
+                    <h3><a href="{% url 'doctors:doctor_detail' doctor.slug %}">Dr. {{ doctor.full_name }}</a></h3>
+                    <p class="doctor-card__specialization">{{ doctor.specialization }}</p>
+                    <div class="doctor-card__socials">
+                        {% if doctor.facebook_url %}<a href="{{ doctor.facebook_url }}"><i class="fa-brands fa-facebook-f"></i></a>{% endif %}
+                        {% if doctor.twitter_url %}<a href="{{ doctor.twitter_url }}"><i class="fa-brands fa-twitter"></i></a>{% endif %}
+                        {% if doctor.instagram_url %}<a href="{{ doctor.instagram_url }}"><i class="fa-brands fa-instagram"></i></a>{% endif %}
+                        {% if doctor.linkedin_url %}<a href="{{ doctor.linkedin_url }}"><i class="fa-brands fa-linkedin-in"></i></a>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our doctor profiles are coming soon. Please check back shortly.</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="{% url 'doctors:doctor_list' %}" class="btn btn--outline-teal">View All Doctors</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURED SERVICES SECTION ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">OUR SERVICES</span>
+            <h2 class="section-title">Complete Dental Care For a Healthy Smile</h2>
+            <p class="section-subtitle">From routine cleanings to advanced procedures, we've got you covered.</p>
+        </div>
+
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card card animate-on-scroll">
+                <div class="service-card__image">
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                </div>
+                <div class="service-card__body">
+                    <div class="service-card__icon"><i class="fa-solid fa-tooth"></i></div>
+                    <h3><a href="{% url 'services:service_detail' service.slug %}">{{ service.name }}</a></h3>
+                    <p>{{ service.short_description }}</p>
+                    <a href="{% url 'services:service_detail' service.slug %}" class="service-card__link">
+                        Learn More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our services list is being updated. Please check back shortly.</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="{% url 'services:service_list' %}" class="btn btn--outline-teal">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ EMERGENCY DENTAL BANNER ============ -->
+<section class="emergency-banner">
+    <div class="container emergency-banner__inner">
+        <div class="emergency-banner__text">
+            <div class="emergency-banner__icon"><i class="fa-solid fa-tooth"></i></div>
+            <div>
+                <h3>Dental Emergency? We Are Available 24/7</h3>
+                <p>Get immediate care from our emergency dental experts.</p>
+            </div>
+        </div>
+        <a href="tel:+15559990000" class="btn btn--white">Call Emergency Line</a>
+    </div>
+</section>
+
+<!-- ============ PATIENT TESTIMONIALS SECTION ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">TESTIMONIALS</span>
+            <h2 class="section-title">What Our Patients Say</h2>
+            <p class="section-subtitle">Real stories from real patients who trust us with their smiles.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card card animate-on-scroll">
+                <div class="testimonial-card__stars">
+                    {% for i in testimonial.star_range %}<i class="fa-solid fa-star"></i>{% endfor %}
+                    {% for i in testimonial.empty_star_range %}<i class="fa-regular fa-star"></i>{% endfor %}
+                </div>
+                <p class="testimonial-card__text">"{{ testimonial.review_text }}"</p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar">{{ testimonial.patient_name|first }}</div>
+                    <div>
+                        <strong>{{ testimonial.patient_name }}</strong>
+                        <span>{{ testimonial.patient_location }}</span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Be the first to leave a review for BrightSmile Dental Care!</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ INSURANCE LOGOS SECTION ============ -->
+{% if insurance_partners %}
+<section class="section insurance-strip">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">INSURANCE</span>
+            <h2 class="section-title">We Accept Most Insurance Plans</h2>
+        </div>
+        <div class="insurance-strip__logos">
+            {% for partner in insurance_partners %}
+            <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ============ LATEST ARTICLES SECTION ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">OUR BLOG</span>
+            <h2 class="section-title">Latest Dental Tips &amp; Articles</h2>
+            <p class="section-subtitle">Stay informed with expert advice on oral health and hygiene.</p>
+        </div>
+
+        <div class="articles-grid">
+            {% for article in articles %}
+            <div class="article-card card animate-on-scroll">
+                <div class="article-card__image">
+                    <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+                </div>
+                <div class="article-card__body">
+                    <span class="article-card__meta">
+                        <i class="fa-regular fa-calendar"></i> {{ article.published_at|date:"M d, Y" }}
+                        {% if article.category %} &bull; {{ article.category.name }}{% endif %}
+                    </span>
+                    <h3><a href="{% url 'blog:blog_detail' article.slug %}">{{ article.title }}</a></h3>
+                    <a href="{% url 'blog:blog_detail' article.slug %}" class="service-card__link">
+                        Read More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our blog articles are coming soon.</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="{% url 'blog:blog_list' %}" class="btn btn--outline-teal">View All Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ GOOGLE MAP SECTION ============ -->
+<section class="map-section">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.386!2d-89.6501!3d39.7817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjEiTiA4OcKwMzknMDAuNCJX!5e0!3m2!1sen!2sus!4v1234567890"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="BrightSmile Dental Care Location">
+    </iframe>
+</section>
+
+{% endblock %}

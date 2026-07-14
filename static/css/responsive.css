@@ -1,0 +1,233 @@
+/* ============================================================
+   BRIGHTSMILE DENTAL CARE — RESPONSIVE STYLESHEET
+   Mobile-first breakpoints for navbar, hero, and card layouts
+   ============================================================ */
+
+/* ---------- TABLET (max-width: 991px) ---------- */
+@media (max-width: 991px) {
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    /* Top info bar: hide secondary items, keep it compact */
+    .top-info-bar__left span:nth-child(2) {
+        display: none;
+    }
+
+    /* Navbar: switch to mobile drawer */
+    .navbar__inner {
+        height: 72px;
+    }
+
+    .navbar__links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        max-width: 85%;
+        height: 100vh;
+        background-color: var(--color-white);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 100px 28px 28px 28px;
+        box-shadow: var(--shadow-lg);
+        transition: right 0.35s ease;
+        z-index: 1050;
+        overflow-y: auto;
+    }
+
+    .navbar__links.is-open {
+        right: 0;
+    }
+
+    .navbar__link {
+        width: 100%;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .navbar__dropdown {
+        width: 100%;
+    }
+
+    .navbar__dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .navbar__dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        display: none;
+        width: 100%;
+        padding: 0 0 0 16px;
+    }
+
+    .navbar__dropdown.is-open .navbar__dropdown-menu {
+        display: block;
+    }
+
+    .navbar__actions .navbar__link {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    .navbar__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar__actions .btn--primary.btn--sm {
+        display: none;
+    }
+
+    /* Overlay behind mobile drawer */
+    .navbar-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(11, 46, 78, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 1040;
+    }
+
+    .navbar-overlay.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Footer: stack columns */
+    .footer__top {
+        grid-template-columns: 1fr 1fr;
+        padding: 60px 20px 40px 20px;
+    }
+
+    .footer__newsletter-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer__newsletter-form input {
+        min-width: 0;
+        flex: 1;
+    }
+}
+
+/* ---------- MOBILE (max-width: 640px) ---------- */
+@media (max-width: 640px) {
+
+    .section {
+        padding: 56px 0;
+    }
+
+    .section-title {
+        font-size: 1.65rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .section-header {
+        margin-bottom: 36px;
+    }
+
+    /* Top info bar: hide entirely on very small screens except emergency */
+    .top-info-bar__left {
+        display: none;
+    }
+
+    .top-info-bar__inner {
+        justify-content: center;
+    }
+
+    .top-info-bar__socials {
+        display: none;
+    }
+
+    .navbar__logo-title {
+        font-size: 1.1rem;
+    }
+
+    .navbar__actions {
+        gap: 12px;
+    }
+
+    .navbar__user-dropdown {
+        display: none;
+    }
+
+    /* Footer: single column */
+    .footer__top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer__bottom-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer__newsletter-form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .footer__newsletter-form input,
+    .footer__newsletter-form button {
+        width: 100%;
+    }
+
+    /* Buttons stack full-width on small mobile within hero/CTA groups */
+    .btn-group--stack-mobile {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-group--stack-mobile .btn {
+        width: 100%;
+    }
+
+    #scrollToTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .messages-container {
+        top: auto;
+        bottom: 20px;
+        right: 16px;
+        left: 16px;
+        max-width: none;
+    }
+}
+
+/* ---------- SMALL MOBILE (max-width: 400px) ---------- */
+@media (max-width: 400px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .navbar__logo-subtitle {
+        display: none;
+    }
+}

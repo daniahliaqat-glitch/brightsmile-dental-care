@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dr. {{ doctor.full_name }} | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Dr. {{ doctor.full_name }}</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="{% url 'doctors:doctor_list' %}">Doctors</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Dr. {{ doctor.full_name }}</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ DOCTOR PROFILE ============ -->
+<section class="section">
+    <div class="container doctor-detail__inner">
+        <div class="doctor-detail__photo">
+            <img src="{{ doctor.photo.url }}" alt="Dr. {{ doctor.full_name }}">
+            <div class="doctor-detail__socials">
+                {% if doctor.facebook_url %}<a href="{{ doctor.facebook_url }}"><i class="fa-brands fa-facebook-f"></i></a>{% endif %}
+                {% if doctor.twitter_url %}<a href="{{ doctor.twitter_url }}"><i class="fa-brands fa-twitter"></i></a>{% endif %}
+                {% if doctor.instagram_url %}<a href="{{ doctor.instagram_url }}"><i class="fa-brands fa-instagram"></i></a>{% endif %}
+                {% if doctor.linkedin_url %}<a href="{{ doctor.linkedin_url }}"><i class="fa-brands fa-linkedin-in"></i></a>{% endif %}
+            </div>
+        </div>
+
+        <div class="doctor-detail__content">
+            <span class="section-badge">{{ doctor.specialization }}</span>
+            <h2 class="section-title">Dr. {{ doctor.full_name }}</h2>
+
+            <div class="doctor-detail__meta-grid">
+                <div class="doctor-detail__meta-item">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <div>
+                        <strong>Education</strong>
+                        <span>{{ doctor.education }}</span>
+                    </div>
+                </div>
+                <div class="doctor-detail__meta-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <div>
+                        <strong>Experience</strong>
+                        <span>{{ doctor.years_of_experience }}+ Years</span>
+                    </div>
+                </div>
+                <div class="doctor-detail__meta-item">
+                    <i class="fa-solid fa-language"></i>
+                    <div>
+                        <strong>Languages</strong>
+                        <span>{{ doctor.languages }}</span>
+                    </div>
+                </div>
+                <div class="doctor-detail__meta-item">
+                    <i class="fa-regular fa-clock"></i>
+                    <div>
+                        <strong>Working Hours</strong>
+                        <span>{{ doctor.working_hours }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Biography</h3>
+            <p class="doctor-detail__bio">{{ doctor.biography|linebreaks }}</p>
+
+            <a href="{% url 'appointments:book_appointment' %}?doctor={{ doctor.slug }}" class="btn btn--primary">
+                Book Appointment With Dr. {{ doctor.full_name }}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SERVICES OFFERED ============ -->
+{% if services %}
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <h2 class="section-title">Services Offered</h2>
+        </div>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card card animate-on-scroll">
+                <div class="service-card__image">
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                </div>
+                <div class="service-card__body">
+                    <div class="service-card__icon"><i class="fa-solid fa-tooth"></i></div>
+                    <h3><a href="{% url 'services:service_detail' service.slug %}">{{ service.name }}</a></h3>
+                    <p>{{ service.short_description }}</p>
+                    <a href="{% url 'services:service_detail' service.slug %}" class="service-card__link">
+                        Learn More <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

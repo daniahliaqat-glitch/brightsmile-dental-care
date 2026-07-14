@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pricing | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/faq-pricing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Pricing</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Pricing</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PRICING TABLE ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">TRANSPARENT PRICING</span>
+            <h2 class="section-title">Affordable Dental Care Pricing</h2>
+            <p class="section-subtitle">
+                Below are demo starting prices for our most popular services.
+                Final cost may vary based on individual treatment needs and insurance coverage.
+            </p>
+        </div>
+
+        <div class="pricing-table">
+            {% for service in services %}
+            <div class="pricing-row animate-on-scroll">
+                <div class="pricing-row__icon"><i class="fa-solid fa-tooth"></i></div>
+                <div class="pricing-row__info">
+                    <h4>{{ service.name }}</h4>
+                    <p>{{ service.short_description }}</p>
+                </div>
+                <div class="pricing-row__price">{{ service.formatted_price }}</div>
+                <a href="{% url 'appointments:book_appointment' %}?service={{ service.slug }}" class="btn btn--outline-teal btn--sm">
+                    Book Now
+                </a>
+            </div>
+            {% empty %}
+            <p class="text-center">Pricing information is being updated. Please contact us for a quote.</p>
+            {% endfor %}
+        </div>
+
+        <p class="pricing-disclaimer">
+            * Prices shown are demo estimates for illustrative purposes and do not reflect final treatment cost.
+            Please contact our office for an accurate quote based on your specific needs and insurance plan.
+        </p>
+    </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <div>
+                <h3>Have Questions About Pricing?</h3>
+                <p>Our team is happy to walk you through costs and payment options.</p>
+            </div>
+        </div>
+        <a href="{% url 'contact_us:contact' %}" class="btn btn--white">Get In Touch</a>
+    </div>
+</section>
+
+{% endblock %}

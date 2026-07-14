@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page Not Found | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/legal.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="error-404">
+    <div class="container error-404__inner">
+        <i class="fa-solid fa-tooth error-404__icon"></i>
+        <h1>404</h1>
+        <h2>Oops! Page Not Found</h2>
+        <p>
+            The page you're looking for seems to have gone for a dental checkup.
+            Let's get you back to a healthy smile.
+        </p>
+        <div class="error-404__actions">
+            <a href="{% url 'core:home' %}" class="btn btn--primary">Back To Home</a>
+            <a href="{% url 'contact_us:contact' %}" class="btn btn--outline">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,136 @@
+/* ============================================================
+   BRIGHTSMILE DENTAL CARE — AUTH PAGES STYLESHEET
+   Login, Register, Forgot Password
+   ============================================================ */
+
+.auth-section {
+    background: linear-gradient(180deg, var(--color-light-blue) 0%, var(--color-white) 100%);
+    padding: 80px 0;
+}
+
+.auth-section__inner {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 44px;
+}
+
+.auth-card--wide {
+    max-width: 620px;
+}
+
+.auth-card__header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-card__icon {
+    font-size: 2.4rem;
+    color: var(--color-teal);
+    margin-bottom: 14px;
+}
+
+.auth-card__header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.auth-card__header p {
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
+}
+
+.auth-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.auth-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.auth-form__field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-dark-blue);
+}
+
+.auth-form__field input,
+.auth-form__field .form-control {
+    padding: 13px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-soft-gray);
+    color: var(--color-dark-blue);
+    width: 100%;
+    transition: var(--transition);
+}
+
+.auth-form__field input:focus,
+.auth-form__field .form-control:focus {
+    outline: none;
+    border-color: var(--color-teal);
+    background-color: var(--color-white);
+}
+
+.auth-form__meta {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.auth-form__meta a {
+    font-size: 0.85rem;
+    color: var(--color-teal);
+    font-weight: 600;
+}
+
+.auth-form__meta a:hover {
+    text-decoration: underline;
+}
+
+.auth-form__error {
+    background-color: #fdecea;
+    color: #e4534b;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.auth-card__footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: var(--color-gray-text);
+}
+
+.auth-card__footer a {
+    color: var(--color-teal);
+    font-weight: 600;
+}
+
+.auth-card__footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .auth-section {
+        padding: 50px 0;
+    }
+
+    .auth-card {
+        padding: 28px;
+    }
+
+    .auth-form__row {
+        grid-template-columns: 1fr;
+    }
+}

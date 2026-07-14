@@ -1,0 +1,82 @@
+<footer class="footer">
+    <div class="container footer__top">
+        <div class="footer__col footer__col--brand">
+            <a href="{% url 'core:home' %}" class="footer__logo">
+                <i class="fa-solid fa-tooth"></i>
+                <div>
+                    <span class="footer__logo-title">BrightSmile</span>
+                    <span class="footer__logo-subtitle">DENTAL CARE</span>
+                </div>
+            </a>
+            <p class="footer__about">
+                BrightSmile Dental Care is committed to providing exceptional dental
+                services in a comfortable and friendly environment for the whole family.
+            </p>
+            <div class="footer__socials">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">Quick Links</h4>
+            <ul class="footer__list">
+                <li><a href="{% url 'core:home' %}">Home</a></li>
+                <li><a href="{% url 'core:about' %}">About Us</a></li>
+                <li><a href="{% url 'doctors:doctor_list' %}">Doctors</a></li>
+                <li><a href="{% url 'appointments:book_appointment' %}">Appointment</a></li>
+                <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+                <li><a href="{% url 'contact_us:contact' %}">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">Our Services</h4>
+            <ul class="footer__list">
+                <li><a href="{% url 'services:service_list' %}">Teeth Cleaning</a></li>
+                <li><a href="{% url 'services:service_list' %}">Dental Implants</a></li>
+                <li><a href="{% url 'services:service_list' %}">Root Canal Therapy</a></li>
+                <li><a href="{% url 'services:service_list' %}">Teeth Whitening</a></li>
+                <li><a href="{% url 'services:service_list' %}">Braces &amp; Aligners</a></li>
+                <li><a href="{% url 'services:service_list' %}">Cosmetic Dentistry</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">Contact Info</h4>
+            <ul class="footer__list footer__list--contact">
+                <li><i class="fa-solid fa-location-dot"></i> {{ CLINIC_ADDRESS|default:"123 Maple Avenue, Springfield, IL 62701, USA" }}</li>
+                <li><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</li>
+                <li><i class="fa-solid fa-envelope"></i> info@brightsmiledental.com</li>
+                <li><i class="fa-regular fa-clock"></i> Mon - Sat: 9:00 AM - 7:00 PM</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer__newsletter">
+        <div class="container footer__newsletter-inner">
+            <div>
+                <h4>Subscribe To Our Newsletter</h4>
+                <p>Get dental tips, offers &amp; updates straight to your inbox.</p>
+            </div>
+            <form action="{% url 'newsletter:subscribe' %}" method="post" class="footer__newsletter-form">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="email" name="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn--primary">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer__bottom">
+        <div class="container footer__bottom-inner">
+            <p>&copy; {% now "Y" %} BrightSmile Dental Care. All Rights Reserved.</p>
+            <div class="footer__bottom-links">
+                <a href="{% url 'core:privacy_policy' %}">Privacy Policy</a>
+                <a href="{% url 'core:terms_conditions' %}">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>

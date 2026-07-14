@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Patient Testimonials | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Patient Testimonials</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Testimonials</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ADD/EDIT REVIEW FORM (Logged-in patients only) ============ -->
+{% if user.is_authenticated %}
+<section class="section">
+    <div class="container">
+        <div class="auth-card card" style="max-width: 640px; margin: 0 auto;">
+            <div class="auth-card__header">
+                <i class="fa-regular fa-star auth-card__icon"></i>
+                <h2>{% if editing_testimonial %}Edit Your Review{% else %}Share Your Experience{% endif %}</h2>
+                <p>Your feedback helps us serve you and other patients better.</p>
+            </div>
+
+            <form method="post"
+                  action="{% if editing_testimonial %}{% url 'testimonials:testimonial_edit' editing_testimonial.pk %}{% else %}{% url 'testimonials:testimonial_add' %}{% endif %}"
+                  data-validate="true" class="auth-form">
+                {% csrf_token %}
+
+                <div class="auth-form__row">
+                    <div class="auth-form__field">
+                        <label for="{{ form.patient_name.id_for_label }}">Your Name</label>
+                        {{ form.patient_name }}
+                    </div>
+                    <div class="auth-form__field">
+                        <label for="{{ form.patient_location.id_for_label }}">Your Location</label>
+                        {{ form.patient_location }}
+                    </div>
+                </div>
+
+                <div class="auth-form__field">
+                    <label for="{{ form.rating.id_for_label }}">Rating</label>
+                    {{ form.rating }}
+                </div>
+
+                <div class="auth-form__field">
+                    <label for="{{ form.review_text.id_for_label }}">Your Review</label>
+                    {{ form.review_text }}
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block">
+                    <i class="fa-regular fa-paper-plane"></i>
+                    {% if editing_testimonial %}Update Review{% else %}Submit Review{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ============ TESTIMONIALS GRID ============ -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">TESTIMONIALS</span>
+            <h2 class="section-title">What Our Patients Say</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card card animate-on-scroll">
+                <div class="testimonial-card__stars">
+                    {% for i in testimonial.star_range %}<i class="fa-solid fa-star"></i>{% endfor %}
+                    {% for i in testimonial.empty_star_range %}<i class="fa-regular fa-star"></i>{% endfor %}
+                </div>
+                <p class="testimonial-card__text">"{{ testimonial.review_text }}"</p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar">{{ testimonial.patient_name|first }}</div>
+                    <div>
+                        <strong>{{ testimonial.patient_name }}</strong>
+                        <span>{{ testimonial.patient_location }}</span>
+                    </div>
+                </div>
+                {% if user.is_authenticated and testimonial.patient_id == user.id %}
+                <div class="testimonial-card__actions">
+                    <a href="{% url 'testimonials:testimonial_edit' testimonial.pk %}">Edit</a>
+                    <a href="{% url 'testimonials:testimonial_delete' testimonial.pk %}"
+                       onclick="return confirm('Are you sure you want to delete your review?');">Delete</a>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p class="text-center">Be the first to leave a review for BrightSmile Dental Care!</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

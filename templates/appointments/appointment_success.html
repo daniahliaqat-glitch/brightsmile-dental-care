@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Appointment Confirmed | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/appointment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="section appointment-success">
+    <div class="container appointment-success__inner">
+        <div class="appointment-success__icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h1>Appointment Request Received!</h1>
+        <p>
+            Thank you for choosing BrightSmile Dental Care. Our team will review your
+            request and contact you shortly to confirm your appointment date and time.
+        </p>
+        <div class="appointment-success__actions">
+            <a href="{% url 'core:home' %}" class="btn btn--outline">Back To Home</a>
+            <a href="{% url 'dashboard:patient_dashboard' %}" class="btn btn--primary">View My Dashboard</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

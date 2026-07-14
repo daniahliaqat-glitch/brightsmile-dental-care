@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin-dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Admin Dashboard</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Admin Dashboard</span>
+        </div>
+    </div>
+</section>
+
+<section class="section dashboard-page">
+    <div class="container dashboard-layout">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="dashboard-sidebar card">
+            <div class="dashboard-sidebar__profile">
+                <div class="dashboard-sidebar__avatar">{{ user.first_name|first|default:user.username|first }}</div>
+                <h4>{{ user.get_full_name|default:user.username }}</h4>
+                <p>Administrator</p>
+            </div>
+
+            <nav class="dashboard-sidebar__nav">
+                <a href="{% url 'dashboard:admin_dashboard' %}" class="is-active">
+                    <i class="fa-solid fa-gauge"></i> Overview
+                </a>
+                <a href="/admin/doctors/doctor/">
+                    <i class="fa-solid fa-user-doctor"></i> Manage Doctors
+                </a>
+                <a href="/admin/services/service/">
+                    <i class="fa-solid fa-tooth"></i> Manage Services
+                </a>
+                <a href="/admin/appointments/appointment/">
+                    <i class="fa-regular fa-calendar-check"></i> Manage Appointments
+                </a>
+                <a href="/admin/auth/user/">
+                    <i class="fa-solid fa-users"></i> Manage Patients
+                </a>
+                <a href="/admin/testimonials/testimonial/">
+                    <i class="fa-regular fa-star"></i> Manage Reviews
+                </a>
+                <a href="/admin/contact_us/contactmessage/">
+                    <i class="fa-regular fa-envelope"></i> Contact Messages
+                </a>
+                <a href="/admin/newsletter/newslettersubscriber/">
+                    <i class="fa-regular fa-paper-plane"></i> Newsletter Subscribers
+                </a>
+                <a href="/admin/">
+                    <i class="fa-solid fa-toolbox"></i> Full Admin Panel
+                </a>
+                <a href="{% url 'accounts:logout' %}">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- ============ MAIN DASHBOARD CONTENT ============ -->
+        <div class="dashboard-main">
+
+            <!-- Overview Stat Cards -->
+            <div class="admin-stats-grid">
+                <a href="/admin/doctors/doctor/" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--teal"><i class="fa-solid fa-user-doctor"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ doctor_count }}</span>
+                        <span class="admin-stat-card__label">Doctors</span>
+                    </div>
+                </a>
+                <a href="/admin/services/service/" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--blue"><i class="fa-solid fa-tooth"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ service_count }}</span>
+                        <span class="admin-stat-card__label">Services</span>
+                    </div>
+                </a>
+                <a href="/admin/appointments/appointment/" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--orange"><i class="fa-regular fa-calendar-check"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ appointment_count }}</span>
+                        <span class="admin-stat-card__label">Total Appointments</span>
+                    </div>
+                </a>
+                <a href="/admin/appointments/appointment/?status__exact=pending" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--red"><i class="fa-solid fa-hourglass-half"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ pending_appointment_count }}</span>
+                        <span class="admin-stat-card__label">Pending Appointments</span>
+                    </div>
+                </a>
+                <a href="/admin/auth/user/" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--purple"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ patient_count }}</span>
+                        <span class="admin-stat-card__label">Registered Patients</span>
+                    </div>
+                </a>
+                <a href="/admin/testimonials/testimonial/?is_approved__exact=0" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--yellow"><i class="fa-regular fa-star"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ pending_review_count }}</span>
+                        <span class="admin-stat-card__label">Reviews Awaiting Approval</span>
+                    </div>
+                </a>
+                <a href="/admin/contact_us/contactmessage/?is_read__exact=0" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--teal"><i class="fa-regular fa-envelope"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ unread_message_count }}</span>
+                        <span class="admin-stat-card__label">Unread Messages</span>
+                    </div>
+                </a>
+                <a href="/admin/newsletter/newslettersubscriber/" class="admin-stat-card card">
+                    <div class="admin-stat-card__icon admin-stat-card__icon--blue"><i class="fa-regular fa-paper-plane"></i></div>
+                    <div>
+                        <span class="admin-stat-card__value">{{ subscriber_count }}</span>
+                        <span class="admin-stat-card__label">Newsletter Subscribers</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Recent Appointments -->
+            <div class="dashboard-section card">
+                <div class="dashboard-section__header">
+                    <h3><i class="fa-regular fa-calendar-check"></i> Recent Appointments</h3>
+                    <a href="/admin/appointments/appointment/" class="dashboard-section__link">View All</a>
+                </div>
+
+                {% if recent_appointments %}
+                <div class="dashboard-table-wrap">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Date</th>
+                                <th>Doctor</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appt in recent_appointments %}
+                            <tr>
+                                <td>{{ appt.full_name }}</td>
+                                <td>{{ appt.appointment_date|date:"M d, Y" }}</td>
+                                <td>{% if appt.doctor %}Dr. {{ appt.doctor.full_name }}{% else %}—{% endif %}</td>
+                                <td>{{ appt.service.name|default:"—" }}</td>
+                                <td><span class="status-badge status-badge--{{ appt.status }}">{{ appt.get_status_display }}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="dashboard-empty">No appointments have been booked yet.</p>
+                {% endif %}
+            </div>
+
+            <!-- Recent Contact Messages -->
+            <div class="dashboard-section card">
+                <div class="dashboard-section__header">
+                    <h3><i class="fa-regular fa-envelope"></i> Recent Contact Messages</h3>
+                    <a href="/admin/contact_us/contactmessage/" class="dashboard-section__link">View All</a>
+                </div>
+
+                {% if recent_messages %}
+                <div class="dashboard-notifications">
+                    {% for msg in recent_messages %}
+                    <div class="dashboard-notification {% if not msg.is_read %}dashboard-notification--unread{% endif %}">
+                        <div class="dashboard-notification__icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                        <div class="dashboard-notification__body">
+                            <strong>{{ msg.full_name }} &mdash; {{ msg.subject }}</strong>
+                            <p>{{ msg.message|truncatewords:20 }}</p>
+                            <span>{{ msg.submitted_at|timesince }} ago</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="dashboard-empty">No contact messages have been received yet.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

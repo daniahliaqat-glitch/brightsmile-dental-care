@@ -1,0 +1,23 @@
+{% if messages %}
+<div class="messages-container" id="messagesContainer">
+    {% for message in messages %}
+        <div class="alert alert--{{ message.tags }}">
+            <span class="alert__icon">
+                {% if message.tags == 'success' %}
+                    <i class="fa-solid fa-circle-check"></i>
+                {% elif message.tags == 'error' %}
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                {% elif message.tags == 'warning' %}
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                {% else %}
+                    <i class="fa-solid fa-circle-info"></i>
+                {% endif %}
+            </span>
+            <span class="alert__text">{{ message }}</span>
+            <button type="button" class="alert__close" onclick="this.parentElement.remove()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}

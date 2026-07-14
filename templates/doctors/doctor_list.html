@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Dentists | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Our Dentists</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Doctors</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ DOCTORS GRID ============ -->
+<section class="section">
+    <div class="container">
+        <div class="doctors-grid">
+            {% for doctor in doctors %}
+            <div class="doctor-card card animate-on-scroll">
+                <div class="doctor-card__image">
+                    <img src="{{ doctor.photo.url }}" alt="Dr. {{ doctor.full_name }}">
+                </div>
+                <div class="doctor-card__body">
+                    <h3><a href="{% url 'doctors:doctor_detail' doctor.slug %}">Dr. {{ doctor.full_name }}</a></h3>
+                    <p class="doctor-card__specialization">{{ doctor.specialization }}</p>
+                    <div class="doctor-card__socials">
+                        {% if doctor.facebook_url %}<a href="{{ doctor.facebook_url }}"><i class="fa-brands fa-facebook-f"></i></a>{% endif %}
+                        {% if doctor.twitter_url %}<a href="{{ doctor.twitter_url }}"><i class="fa-brands fa-twitter"></i></a>{% endif %}
+                        {% if doctor.instagram_url %}<a href="{{ doctor.instagram_url }}"><i class="fa-brands fa-instagram"></i></a>{% endif %}
+                        {% if doctor.linkedin_url %}<a href="{{ doctor.linkedin_url }}"><i class="fa-brands fa-linkedin-in"></i></a>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Our doctor profiles are being added. Please check back shortly.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+    <div class="container cta-banner__inner">
+        <div class="cta-banner__text">
+            <i class="fa-solid fa-user-doctor"></i>
+            <div>
+                <h3>We Have 15+ More Experienced Doctors</h3>
+                <p>Our team of experts is here to provide the best care for you and your family.</p>
+            </div>
+        </div>
+        <a href="{% url 'appointments:book_appointment' %}" class="btn btn--white">Book Appointment</a>
+    </div>
+</section>
+
+{% endblock %}

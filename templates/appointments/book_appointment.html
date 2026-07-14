@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Appointment | BrightSmile Dental Care{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inner-pages.css' %}">
+<link rel="stylesheet" href="{% static 'css/appointment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============ PAGE HEADER ============ -->
+<section class="page-header">
+    <div class="container page-header__inner">
+        <h1>Book Your Appointment</h1>
+        <div class="page-header__breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Appointment</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BOOKING SECTION ============ -->
+<section class="section">
+    <div class="container appointment-page__inner">
+
+        <!-- Contact Information Sidebar -->
+        <div class="appointment-page__info card">
+            <h3>Contact Information</h3>
+            <ul class="appointment-page__info-list">
+                <li>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>123 Smile Street, New York, USA 10001</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-phone"></i>
+                    <span>(123) 456-7890</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info@brightsmiledental.com</span>
+                </li>
+                <li>
+                    <i class="fa-regular fa-clock"></i>
+                    <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <span>Emergency: 24/7</span>
+                </li>
+            </ul>
+            <img src="{% static 'images/clinic-interior.jpg' %}" alt="BrightSmile Clinic Interior" class="appointment-page__info-image">
+        </div>
+
+        <!-- Booking Form -->
+        <div class="appointment-page__form-wrap card">
+            <h3>Schedule Your Appointment</h3>
+
+            <form method="post" data-validate="true" class="appointment-form">
+                {% csrf_token %}
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+                    <div class="appointment-form__field">
+                        <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="appointment-form__field">
+                        <label for="{{ form.appointment_date.id_for_label }}">Select Date</label>
+                        {{ form.appointment_date }}
+                    </div>
+                </div>
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.appointment_time.id_for_label }}">Select Time</label>
+                        {{ form.appointment_time }}
+                    </div>
+                    <div class="appointment-form__field">
+                        <label for="{{ form.doctor.id_for_label }}">Select Doctor</label>
+                        {{ form.doctor }}
+                    </div>
+                </div>
+
+                <div class="appointment-form__row">
+                    <div class="appointment-form__field">
+                        <label for="{{ form.service.id_for_label }}">Select Service</label>
+                        {{ form.service }}
+                    </div>
+                    <div class="appointment-form__field"></div>
+                </div>
+
+                <div class="appointment-form__field appointment-form__field--full">
+                    <label for="{{ form.message.id_for_label }}">Message (Optional)</label>
+                    {{ form.message }}
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block">
+                    <i class="fa-regular fa-calendar-check"></i> Book Appointment
+                </button>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
