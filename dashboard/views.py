@@ -43,14 +43,16 @@ def patient_dashboard_view(request):
         is_favorite=True,
     )
 
-    notifications = Notification.objects.filter(patient=request.user)[:10]
+    all_notifications = Notification.objects.filter(patient=request.user)
+    unread_count = all_notifications.filter(is_read=False).count()
+    notifications = all_notifications[:10]
 
     context = {
         'upcoming_appointments': upcoming_appointments,
         'appointment_history': appointment_history,
         'favorite_appointments': favorite_appointments,
         'notifications': notifications,
-        'unread_notification_count': notifications.filter(is_read=False).count(),
+        'unread_notification_count': unread_count,
     }
     return render(request, 'dashboard/patient_dashboard.html', context)
 
