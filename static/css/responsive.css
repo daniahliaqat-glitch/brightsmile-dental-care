@@ -42,7 +42,7 @@
         padding: 100px 28px 28px 28px;
         box-shadow: var(--shadow-lg);
         transition: right 0.35s ease;
-        z-index: 1050;
+        z-index: 2000 !important;
         overflow-y: auto;
     }
 
@@ -54,10 +54,12 @@
         width: 100%;
         padding: 14px 0;
         border-bottom: 1px solid var(--color-border);
+        background-color: var(--color-white);
     }
 
     .navbar__dropdown {
         width: 100%;
+        background-color: var(--color-white);
     }
 
     .navbar__dropdown-toggle {
@@ -105,12 +107,14 @@
         opacity: 0;
         visibility: hidden;
         transition: var(--transition);
-        z-index: 1040;
+        z-index: 900 !important;
+        pointer-events: none;
     }
 
     .navbar-overlay.is-visible {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
     }
 
     /* Footer: stack columns */
