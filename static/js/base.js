@@ -48,7 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.addEventListener('click', closeMobileMenu);
 
         // Close mobile menu when a nav link is clicked
-        navbarLinks.querySelectorAll('.navbar__link').forEach(function (link) {
+        // Close mobile menu when an actual nav link is clicked
+        // (but NOT dropdown toggle buttons like "Pages", which should
+        // expand their submenu instead of closing the whole drawer)
+        navbarLinks.querySelectorAll('.navbar__link:not(.navbar__dropdown-toggle)').forEach(function (link) {
             link.addEventListener('click', closeMobileMenu);
         });
     }
