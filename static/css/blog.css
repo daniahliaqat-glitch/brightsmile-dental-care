@@ -1,41 +1,61 @@
 /* ============================================================
    BRIGHTSMILE DENTAL CARE — BLOG PAGES STYLESHEET
+   Mobile-first: base styles target mobile, then enhanced
+   progressively for tablet and desktop via min-width queries.
    ============================================================ */
 
+/* ---------- BASE / MOBILE STYLES (default, no media query) ---------- */
+
 .blog-page__inner {
-    display: grid;
-    grid-template-columns: 2.4fr 1fr;
-    gap: 40px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.blog-page__main {
+    width: 100%;
+    min-width: 0;
 }
 
 .articles-grid--wide {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
 }
 
 .blog-page__sidebar {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+    width: 100%;
 }
 
 .blog-sidebar-widget {
-    padding: 24px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .blog-sidebar-widget h4 {
-    font-size: 1.05rem;
-    margin-bottom: 18px;
+    font-size: 1rem;
+    margin-bottom: 16px;
 }
 
 .blog-search-form {
     display: flex;
     gap: 8px;
+    width: 100%;
 }
 
 .blog-search-form input {
     flex: 1;
-    padding: 12px 16px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 0.9rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     background-color: var(--color-soft-gray);
@@ -48,23 +68,25 @@
 }
 
 .blog-search-form button {
-    width: 46px;
+    width: 44px;
+    min-width: 44px;
     background-color: var(--color-teal);
     color: var(--color-white);
     border-radius: var(--radius-sm);
 }
 
 .blog-category-list li {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .blog-category-list a {
     display: block;
-    padding: 10px 14px;
+    padding: 10px 12px;
     border-radius: var(--radius-sm);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--color-dark-blue);
     transition: var(--transition);
+    word-break: break-word;
 }
 
 .blog-category-list a:hover,
@@ -74,27 +96,30 @@
     font-weight: 600;
 }
 
-/* ---------- BLOG DETAIL ---------- */
+/* ---------- BLOG DETAIL (mobile base) ---------- */
+
 .blog-detail__inner {
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .blog-detail__image {
     width: 100%;
-    border-radius: var(--radius-lg);
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-md);
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
 }
 
 .blog-detail__meta {
     display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 8px;
     color: var(--color-gray-text);
-    font-size: 0.88rem;
-    margin-bottom: 28px;
-    padding-bottom: 20px;
+    font-size: 0.82rem;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -105,21 +130,23 @@
 
 .blog-detail__content {
     color: var(--color-gray-text);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 1.75;
 }
 
 .blog-detail__content p {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 /* ---------- TESTIMONIAL CARD ACTIONS (edit/delete) ---------- */
+
 .testimonial-card__actions {
     display: flex;
     gap: 16px;
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
 }
 
 .testimonial-card__actions a {
@@ -133,26 +160,61 @@
 }
 
 /* ============================================================
-   RESPONSIVE OVERRIDES
+   TABLET ENHANCEMENTS (min-width: 641px)
    ============================================================ */
 
-@media (max-width: 991px) {
-    .blog-page__inner {
-        grid-template-columns: 1fr;
-    }
-
+@media (min-width: 641px) {
     .articles-grid--wide {
         grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
-}
 
-@media (max-width: 640px) {
-    .articles-grid--wide {
-        grid-template-columns: 1fr;
+    .blog-sidebar-widget {
+        padding: 24px;
+    }
+
+    .blog-sidebar-widget h4 {
+        font-size: 1.05rem;
+        margin-bottom: 18px;
+    }
+
+    .blog-category-list a {
+        font-size: 0.9rem;
     }
 
     .blog-detail__meta {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .blog-detail__content {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}
+
+/* ============================================================
+   DESKTOP ENHANCEMENTS (min-width: 992px)
+   ============================================================ */
+
+@media (min-width: 992px) {
+    .blog-page__inner {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .blog-page__main {
+        flex: 2.4;
+    }
+
+    .blog-page__sidebar {
+        flex: 1;
+    }
+
+    .blog-detail__inner {
+        max-width: 800px;
+        margin: 0 auto;
     }
 }
